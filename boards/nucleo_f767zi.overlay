@@ -1,0 +1,45 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+/* dut: */
+&usart6 {
+	dmas = <&dma2 7 5 0x28440 0x03>,
+		<&dma2 2 5 0x28480 0x03>;
+	dma-names = "tx", "rx";
+};
+
+&usart2 {
+		status = "okay";
+};
+
+&dma2 {
+	status = "okay";
+};
+
+&rcc {		
+	apb2-prescaler = < 4 >;
+};
+
+&spi1 {
+	pinctrl-0 = <&spi1_sck_pa5 &spi1_miso_pa6 &spi1_mosi_pb5>;
+    status = "okay";
+    cs-gpios = <&gpioa 4 GPIO_ACTIVE_LOW>;
+	sdhc0: sdhc@0 {
+		compatible = "zephyr,sdhc-spi-slot";
+		reg = <0>;
+		spi-max-frequency = <50000000>;/*27 místo 50*/
+		status = "okay";
+		mmc {
+			compatible = "zephyr,sdmmc-disk";
+			status = "okay";
+			disk-name = "SD";
+		};
+	};
+};
+
+&usart2 {
+		status = "okay";
+};
+
+&die_temp {
+	status = "okay";
+};
+
