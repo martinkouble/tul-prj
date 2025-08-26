@@ -164,6 +164,7 @@ void stg_function(void *arg1, void *arg2, void *arg3) {
 	struct fs_file_t file;
 	int ret = 0;
 	char *msg;
+	const char newline = '\n';
 	ret = disk_access_init("SD");
 	if (ret != 0) {
 		printk("Chyba inicializace disku: %d\n", ret);
@@ -207,8 +208,7 @@ void stg_function(void *arg1, void *arg2, void *arg3) {
 		if (ret < 0) {
 			printk("Chyba při zápisu msg do souboru: %d\n", ret);
 		} else {
-			//const char *newline = "\n";
-			ret = fs_write(&file, '\n', sizeof('\n'));
+			ret = fs_write(&file, &newline, sizeof(newline));
 			if (ret < 0) {
 				printk("Chyba při zápisu nového řádku: %d\n", ret);
 			} else {
